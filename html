@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>ISLearning</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="phone-preview">
+    <div class="phone-speaker"></div>
+    <div class="phone-camera"></div>
+
+    <main class="phone-app">
+
+      <!-- Phone status bar -->
+      <div class="phone-status-bar">
+        <span id="phoneTime">--:--</span>
+
+        <div class="status-icons">
+          <span title="Signal">▂▄▆</span>
+          <span title="Wi-Fi">◔</span>
+
+          <span class="battery-icon" title="Battery">
+            <span class="battery-level"></span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Splash -->
+      <section id="splashScreen" class="screen splash-screen active-screen">
+        <div class="logo-box">
+          <span>📓</span>
+          <span class="logo-pen">✎</span>
+        </div>
+
+        <h1>ISLearning</h1>
+        <p>SDCC Student-Centered Learning App</p>
+
+        <div class="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </section>
+
+      <!-- Onboarding -->
+      <section id="onboardingScreen" class="screen onboarding-screen">
+        <button id="skipButton" class="text-button top-skip" type="button">
+          Skip
+        </button>
+
+        <div class="onboarding-icon">
+          📚
+          <span>✎</span>
+        </div>
+
+        <div>
+          <p class="small-title">ISLEARNING</p>
+          <h1>Organize Your Academic Materials</h1>
+
+          <p class="description">
+            Keep your PDFs, documents, presentations, images, and notes
+            organized in one place.
+          </p>
+        </div>
+
+        <div class="onboarding-bottom">
+          <div class="onboarding-dots">
+            <span class="active-dot"></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <button id="getStartedButton" class="primary-button" type="button">
+            Get Started
+          </button>
+        </div>
+      </section>
+
+      <!-- Login -->
+      <section id="loginScreen" class="screen login-screen">
+        <div class="login-header">
+          <div class="logo-box small-logo">
+            <span>📓</span>
+            <span class="logo-pen">✎</span>
+          </div>
+
+          <h1>Welcome to ISLearning</h1>
+          <p>Sign in to continue your learning journey.</p>
+        </div>
+
+        <form id="loginForm">
+          <label for="loginEmail">Student ID or Email</label>
+
+          <input
+            id="loginEmail"
+            type="text"
+            placeholder="student@sdcc.edu.ph"
+            required
+          />
+
+          <label for="loginPassword">Password</label>
+
+          <input
+            id="loginPassword"
+            type="password"
+            placeholder="Enter your password"
+            required
+          />
+
+          <p id="loginError" class="error-message"></p>
+
+          <button class="primary-button full-button" type="submit">
+            Sign In
+          </button>
+
+          <button id="guestButton" class="secondary-button full-button" type="button">
+            Continue as Guest
+          </button>
+        </form>
+      </section>
+
+      <!-- Welcome Back -->
+      <section id="welcomeBackScreen" class="screen welcome-back-screen">
+        <div class="welcome-back-content">
+          <div class="logo-box small-logo">
+            <span>📓</span>
+            <span class="logo-pen">✎</span>
+          </div>
+
+          <p class="small-title">WELCOME BACK</p>
+
+          <h1>
+            Welcome,
+            <span id="welcomeBackName">Student</span>!
+          </h1>
+
+          <p class="description">
+            Your saved materials, reviewers, quizzes, and progress are ready.
+          </p>
+
+          <button id="signInAgainButton" class="primary-button full-button" type="button">
+            Sign In Again
+          </button>
+
+          <button id="useAnotherAccountButton" class="secondary-button full-button" type="button">
+            Use Another Account
+          </button>
+        </div>
+      </section>
+
+      <!-- Profile Setup -->
+      <section id="profileSetupScreen" class="screen setup-screen">
+        <h1>Complete Your Student Profile</h1>
+
+        <p class="description">
+          Tell us a little about yourself so we can personalize your
+          ISLearning experience.
+        </p>
+
+        <form id="profileSetupForm">
+          <label for="studentName">Student Name</label>
+
+          <input
+            id="studentName"
+            type="text"
+            placeholder="Enter your full name"
+          />
+
+          <label for="studentId">Student ID No.</label>
+
+          <input
+            id="studentId"
+            type="text"
+            placeholder="Enter your student ID number"
+          />
+
+          <label for="studentCourse">Course / Program</label>
+
+          <select id="studentCourse">
+            <option value="">Select your course or program</option>
+
+            <option value="Bachelor of Science in Information Systems">
+              Bachelor of Science in Information Systems
+            </option>
+
+            <option value="Bachelor of Science in Information Technology">
+              Bachelor of Science in Information Technology
+            </option>
+
+            <option value="Bachelor of Science in Business Administration">
+              Bachelor of Science in Business Administration
+            </option>
+
+            <option value="Other">Other</option>
+          </select>
+
+          <p id="setupError" class="error-message"></p>
+
+          <button class="primary-button full-button" type="submit">
+            Continue
+          </button>
+        </form>
+      </section>
+
+      <!-- Main App -->
+      <section id="mainApp">
+
+        <div id="offlineBanner" class="offline-banner hidden">
+          ☁ You are offline. Previously saved materials, reviewers, and quiz
+          results are still available.
+        </div>
+
+        <!-- Dashboard -->
+        <section id="homeScreen" class="app-screen active-app-screen">
+          <header class="dashboard-header">
+            <div>
+              <h1>
+                Welcome,
+                <span id="welcomeName">Student</span>!
+              </h1>
+
+              <p>
+                Organize your materials, review your lessons, and practice
+                quizzes.
+              </p>
+            </div>
+
+            <div class="dashboard-header-actions">
+              <button id="notificationsButton" class="header-icon-button" type="button">
+                🔔
+              </button>
+
+              <button id="profileButton" class="profile-icon" type="button">
+                <span id="profileInitial">S</span>
+              </button>
+            </div>
+          </header>
+
+          <section class="statistics">
+            <button id="materialsStatButton" class="stat-card" type="button">
+              <span>📚</span>
+              <strong id="materialCount">0</strong>
+              <small>Materials</small>
+            </button>
+
+            <button id="reviewersStatButton" class="stat-card" type="button">
+              <span>📖</span>
+              <strong id="reviewerCount">0</strong>
+              <small>Reviewers</small>
+            </button>
+
+            <button id="quizzesStatButton" class="stat-card" type="button">
+              <span>📝</span>
+              <strong id="quizCount">0</strong>
+              <small>Quizzes</small>
+            </button>
+
+            <button id="progressStatButton" class="stat-card progress-card" type="button">
+              <span>📈</span>
+              <strong id="averageScore">0%</strong>
+              <small>Progress</small>
+            </button>
+          </section>
+
+          <section class="section-content">
+            <div class="section-title">
+              <h2>Quick Actions</h2>
+              <span>Start learning</span>
+            </div>
+
+            <div class="quick-actions">
+              <button id="uploadButton" class="action-card upload-action" type="button">
+                <span>📤</span>
+                <strong>Upload</strong>
+                <small>Material</small>
+              </button>
+
+              <button id="reviewerButton" class="action-card reviewer-action" type="button">
+                <span>✨</span>
+                <strong>Generate</strong>
+                <small>Reviewer</small>
+              </button>
+
+              <button id="quizButton" class="action-card quiz-action" type="button">
+                <span>❓</span>
+                <strong>Practice</strong>
+                <small>Quiz</small>
+              </button>
+            </div>
+          </section>
+
+          <section class="section-content">
+            <div class="section-title">
+              <h2>Continue Learning</h2>
+
+              <button id="materialsButton" class="text-button" type="button">
+                View all
+              </button>
+            </div>
+
+            <div id="recentMaterials" class="materials-list"></div>
+          </section>
+        </section>
+
+        <!-- Materials -->
+        <section id="materialsScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backHomeFromMaterials" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1>My Materials</h1>
+              <p>Organize and manage your files.</p>
+            </div>
+          </header>
+
+          <div class="materials-tools">
+            <button id="searchButton" class="tool-button" type="button">
+              🔍 Search
+            </button>
+
+            <button id="uploadButtonMaterials" class="primary-button upload-small-button" type="button">
+              + Upload
+            </button>
+          </div>
+
+          <div class="filter-row">
+            <button class="filter-button active-filter" data-filter="All" type="button">
+              All
+            </button>
+
+            <button class="filter-button" data-filter="PDF" type="button">
+              PDF
+            </button>
+
+            <button class="filter-button" data-filter="DOCX" type="button">
+              DOCX
+            </button>
+
+            <button class="filter-button" data-filter="PPTX" type="button">
+              PPTX
+            </button>
+
+            <button class="filter-button" data-filter="TXT" type="button">
+              TXT
+            </button>
+
+            <button class="filter-button" data-filter="Images" type="button">
+              Images
+            </button>
+
+            <button class="filter-button" data-filter="Favorites" type="button">
+              ★ Favorites
+            </button>
+          </div>
+
+          <div id="materialsList" class="materials-list"></div>
+        </section>
+
+        <!-- Upload -->
+        <section id="uploadScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backMaterialsFromUpload" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1>Upload Material</h1>
+              <p>Add a learning material to your library.</p>
+            </div>
+          </header>
+
+          <div class="upload-area">
+            <div class="upload-icon-circle">
+              <span class="upload-large-icon">📤</span>
+            </div>
+
+            <h2>Upload Study Material</h2>
+
+            <p>
+              Choose a PDF, DOCX, PPTX, TXT, or image file from your device.
+            </p>
+
+            <label for="materialFile" class="select-file-button">
+              Choose File
+            </label>
+
+            <input
+              id="materialFile"
+              type="file"
+              accept=".pdf,.docx,.pptx,.txt,image/*"
+            />
+
+            <small class="upload-note">
+              PDF, DOCX, PPTX, and TXT files can be used for reviewer and quiz
+              generation. Images can be viewed and organized.
+            </small>
+          </div>
+
+          <label for="materialSubject">Subject</label>
+
+          <input
+            id="materialSubject"
+            type="text"
+            placeholder="Example: Quantitative Methods"
+          />
+
+          <label for="materialTopic">Topic</label>
+
+          <input
+            id="materialTopic"
+            type="text"
+            placeholder="Example: Probability Concepts"
+          />
+
+          <p id="uploadError" class="error-message"></p>
+
+          <button id="saveMaterialButton" class="primary-button full-button" type="button">
+            Upload Material
+          </button>
+        </section>
+
+        <!-- Viewer -->
+        <section id="materialViewerScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backFromMaterialViewer" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1 id="viewerFileName">Material Viewer</h1>
+              <p id="viewerFileInfo">View uploaded material</p>
+            </div>
+          </header>
+
+          <div id="viewerContent" class="viewer-content"></div>
+        </section>
+
+        <!-- Reviewer Source -->
+        <section id="reviewerSourceScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backHomeFromReviewerSource" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1>Generate Reviewer</h1>
+              <p>Select a text-based material.</p>
+            </div>
+          </header>
+
+          <p class="information-text">
+            PDF, DOCX, PPTX, and TXT materials can be used to generate
+            reviewers. Images are not included because OCR is outside the
+            project scope.
+          </p>
+
+          <div id="reviewerMaterialList" class="materials-list"></div>
+        </section>
+
+        <!-- Reviewer Processing -->
+        <section id="reviewerProcessingScreen" class="app-screen">
+          <div class="center-content">
+            <div class="spinner"></div>
+
+            <h1>Analyzing your material...</h1>
+
+            <p>
+              Extracting important concepts, terms, and summary from your
+              selected material.
+            </p>
+          </div>
+        </section>
+
+        <!-- Reviewer Result -->
+        <section id="reviewerResultScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backReviewersFromResult" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1 id="reviewerTitle">Generated Reviewer</h1>
+              <p id="reviewerSourceName">Generated from material.</p>
+            </div>
+          </header>
+
+          <div class="ai-notice">
+            ℹ Generated reviewers are supplementary. Please verify information
+            using your original material.
+          </div>
+
+          <article class="review-section">
+            <h2>Key Terms</h2>
+            <div id="topicTags" class="topic-tags"></div>
+          </article>
+
+          <article class="review-section">
+            <h2>Key Concepts</h2>
+            <p id="reviewerKeyConcept"></p>
+          </article>
+
+          <article class="review-section">
+            <h2>Important Terms</h2>
+            <ul id="reviewerTerms"></ul>
+          </article>
+
+          <article class="review-section">
+            <h2>Summary</h2>
+            <p id="reviewerSummary"></p>
+          </article>
+
+          <button id="useReviewerQuizButton" class="primary-button full-button" type="button">
+            Use for Quiz
+          </button>
+
+          <button id="backToReviewersButton" class="secondary-button full-button" type="button">
+            Back to Reviewers
+          </button>
+        </section>
+
+        <!-- Reviewers -->
+        <section id="reviewersScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backHomeFromReviewers" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1>My Reviewers</h1>
+              <p>Your generated study reviewers.</p>
+            </div>
+          </header>
+
+          <button id="generateNewReviewerButton" class="primary-button full-button" type="button">
+            + Generate Reviewer
+          </button>
+
+          <div id="reviewersList" class="materials-list"></div>
+        </section>
+
+        <!-- Quiz Setup -->
+        <section id="quizSetupScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backFromQuizSetup" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1>Generate Practice Quiz</h1>
+              <p>Create a quiz from a material or reviewer.</p>
+            </div>
+          </header>
+
+          <label for="quizSourceSelect">Select Source</label>
+
+          <select id="quizSourceSelect">
+            <option value="">Select material or reviewer</option>
+          </select>
+
+          <h2 class="setup-heading">Number of Items</h2>
+
+          <div class="quiz-choice-grid">
+            <button class="question-count-choice active-choice" data-count="5" type="button">
+              5
+            </button>
+
+            <button class="question-count-choice" data-count="10" type="button">
+              10
+            </button>
+
+            <button class="question-count-choice" data-count="15" type="button">
+              15
+            </button>
+
+            <button class="question-count-choice" data-count="20" type="button">
+              20
+            </button>
+          </div>
+
+          <label for="customQuestionCount">Custom Number of Items</label>
+
+          <input
+            id="customQuestionCount"
+            type="number"
+            min="1"
+            max="100"
+            step="1"
+            value="5"
+            placeholder="Enter 1 to 100"
+          />
+
+          <p class="input-helper">
+            You may choose from 1 to 100 questions.
+          </p>
+
+          <h2 class="setup-heading">Question Type</h2>
+
+          <div class="quiz-type-grid">
+            <button class="question-type-choice active-choice" data-type="Multiple Choice" type="button">
+              Multiple Choice
+            </button>
+
+            <button class="question-type-choice" data-type="True or False" type="button">
+              True / False
+            </button>
+
+            <button class="question-type-choice mix-choice" data-type="Mix" type="button">
+              Mix
+            </button>
+          </div>
+
+          <p class="input-helper">
+            Mix includes Multiple Choice and True / False questions.
+          </p>
+
+          <p id="quizSetupError" class="error-message"></p>
+
+          <button id="generateQuizButton" class="primary-button full-button" type="button">
+            Generate Quiz
+          </button>
+        </section>
+
+        <!-- Quiz Processing -->
+        <section id="quizProcessingScreen" class="app-screen">
+          <div class="center-content">
+            <div class="spinner"></div>
+
+            <h1>Creating your practice quiz...</h1>
+
+            <p>
+              Preparing questions from your selected material or reviewer.
+            </p>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section id="quizScreen" class="app-screen">
+          <header class="quiz-header">
+            <button id="backFromQuiz" class="quiz-back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <p id="quizProgressText">Question 1 of 5</p>
+              <h1 id="quizScreenTitle">Practice Quiz</h1>
+            </div>
+          </header>
+
+          <div class="progress-bar">
+            <div id="quizProgressFill" class="progress-fill"></div>
+          </div>
+
+          <section class="question-box">
+            <p id="questionTypeLabel" class="question-label">
+              MULTIPLE CHOICE
+            </p>
+
+            <h2 id="questionText"></h2>
+
+            <div id="answerChoices" class="answer-choices"></div>
+          </section>
+
+          <button id="nextQuestionButton" class="primary-button full-button" type="button" disabled>
+            Next Question
+          </button>
+        </section>
+
+        <!-- Quiz Result -->
+        <section id="quizResultScreen" class="app-screen">
+          <div class="result-content">
+            <div class="result-check">✓</div>
+
+            <p class="small-title">QUIZ COMPLETE!</p>
+
+            <h1 id="resultTitle">Good job!</h1>
+
+            <p>You have completed your practice quiz.</p>
+
+            <div class="score-display">
+              <strong id="resultPercentage">0%</strong>
+              <span>Score</span>
+            </div>
+
+            <h2 id="resultScore">0 / 0</h2>
+
+            <div class="result-summary-grid">
+              <div>
+                <strong id="correctCount">0</strong>
+                <small>Correct</small>
+              </div>
+
+              <div>
+                <strong id="incorrectCount">0</strong>
+                <small>Incorrect</small>
+              </div>
+
+              <div>
+                <strong id="resultAccuracy">0%</strong>
+                <small>Accuracy</small>
+              </div>
+            </div>
+
+            <button id="tryAgainButton" class="secondary-button full-button" type="button">
+              Try Again
+            </button>
+
+            <button id="backToQuizzesButton" class="primary-button full-button" type="button">
+              Back to Quizzes
+            </button>
+          </div>
+        </section>
+
+        <!-- Quiz History -->
+        <section id="quizzesScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backHomeFromQuizzes" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1>Practice Quizzes</h1>
+              <p>Quiz history and recent scores.</p>
+            </div>
+          </header>
+
+          <button id="createQuizButton" class="primary-button full-button" type="button">
+            + Create Practice Quiz
+          </button>
+
+          <div id="quizzesList" class="materials-list"></div>
+        </section>
+
+        <!-- Progress -->
+        <section id="progressScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backHomeFromProgress" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1>Score & Progress</h1>
+              <p>See your practice quiz performance.</p>
+            </div>
+          </header>
+
+          <div class="progress-summary">
+            <div>
+              <span>Average Score</span>
+              <strong id="progressAverageScore">0%</strong>
+            </div>
+
+            <div>
+              <span>Highest Score</span>
+              <strong id="highestScore">0%</strong>
+            </div>
+
+            <div>
+              <span>Quizzes Taken</span>
+              <strong id="completedQuizzes">0</strong>
+            </div>
+          </div>
+
+          <h2 class="setup-heading">Recent Scores</h2>
+
+          <div id="recentScoresList" class="materials-list"></div>
+        </section>
+
+        <!-- Profile -->
+        <section id="profileScreen" class="app-screen">
+          <header class="profile-header">
+            <div id="largeProfileInitial" class="large-profile-icon">S</div>
+
+            <div>
+              <h1 id="profileName">Student Name</h1>
+              <p id="profileStudentId">Student ID: SDCC-0000</p>
+              <p id="profileCourse">Bachelor of Science in Information Systems</p>
+            </div>
+          </header>
+
+          <button id="profileProgressButton" class="profile-option" type="button">
+            <span>📈</span>
+
+            <span>
+              <strong>My Progress</strong>
+              <small>Quiz scores and performance</small>
+            </span>
+
+            <b>›</b>
+          </button>
+
+          <button id="profileReviewersButton" class="profile-option" type="button">
+            <span>📖</span>
+
+            <span>
+              <strong>Saved Reviewers</strong>
+              <small>Your generated reviewers</small>
+            </span>
+
+            <b>›</b>
+          </button>
+
+          <button id="settingsButton" class="profile-option" type="button">
+            <span>⚙</span>
+
+            <span>
+              <strong>Settings</strong>
+              <small>Preferences and application options</small>
+            </span>
+
+            <b>›</b>
+          </button>
+
+          <button id="backHomeFromProfile" class="secondary-button full-button" type="button">
+            Back to Dashboard
+          </button>
+
+          <button id="logoutButton" class="logout-button full-button" type="button">
+            Log Out
+          </button>
+        </section>
+
+        <!-- Settings -->
+        <section id="settingsScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backProfileFromSettings" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1>Settings</h1>
+              <p>Manage your learning preferences.</p>
+            </div>
+          </header>
+
+          <div class="settings-item">
+            <div>
+              <strong>Dark Mode</strong>
+              <small>Use a darker application appearance</small>
+            </div>
+
+            <label class="switch">
+              <input id="darkModeToggle" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-item">
+            <div>
+              <strong>Offline Access</strong>
+              <small>Use saved content without internet</small>
+            </div>
+
+            <label class="switch">
+              <input id="offlineToggle" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <button id="resetButton" class="logout-button full-button" type="button">
+            Reset Demo Data
+          </button>
+        </section>
+
+        <!-- Notifications -->
+        <section id="notificationsScreen" class="app-screen">
+          <header class="screen-header left-header">
+            <button id="backHomeFromNotifications" class="back-button" type="button">
+              ←
+            </button>
+
+            <div>
+              <h1>Notifications</h1>
+              <p>Study reminders and system updates.</p>
+            </div>
+          </header>
+
+          <div id="notificationsList" class="materials-list"></div>
+        </section>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-navigation">
+          <button class="nav-item active-nav" data-screen="homeScreen" type="button">
+            <span>⌂</span>
+            <small>Home</small>
+          </button>
+
+          <button class="nav-item" data-screen="materialsScreen" type="button">
+            <span>📂</span>
+            <small>Materials</small>
+          </button>
+
+          <button class="nav-item" data-screen="reviewersScreen" type="button">
+            <span>📖</span>
+            <small>Reviewers</small>
+          </button>
+
+          <button class="nav-item" data-screen="quizzesScreen" type="button">
+            <span>❓</span>
+            <small>Quizzes</small>
+          </button>
+
+          <button class="nav-item" data-screen="profileScreen" type="button">
+            <span>👤</span>
+            <small>Profile</small>
+          </button>
+        </nav>
+      </section>
+
+      <!-- Modal -->
+      <div id="modalOverlay" class="modal-overlay hidden">
+        <div id="modalBox" class="modal-box"></div>
+      </div>
+
+      <!-- Toast -->
+      <div id="toast" class="toast hidden">
+        <span id="toastIcon">✓</span>
+        <span id="toastText">Saved successfully.</span>
+      </div>
+    </main>
+  </div>
+
+  <!-- PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <!-- Mammoth for DOCX -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
+
+  <!-- JSZip for PPTX -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
